@@ -12,11 +12,14 @@
 #    deny_cat_rental_request POST   /cat_rental_requests/:id/deny(.:format)                                                  cat_rental_requests#deny
 #        cat_rental_requests POST   /cat_rental_requests(.:format)                                                           cat_rental_requests#create
 #     new_cat_rental_request GET    /cat_rental_requests/new(.:format)                                                       cat_rental_requests#new
-#                      users POST   /users(.:format)                                                                         users#create
+#                      users GET    /users(.:format)                                                                         users#index
+#                            POST   /users(.:format)                                                                         users#create
 #                   new_user GET    /users/new(.:format)                                                                     users#new
 #                  edit_user GET    /users/:id/edit(.:format)                                                                users#edit
-#                       user PATCH  /users/:id(.:format)                                                                     users#update
+#                       user GET    /users/:id(.:format)                                                                     users#show
+#                            PATCH  /users/:id(.:format)                                                                     users#update
 #                            PUT    /users/:id(.:format)                                                                     users#update
+#                            DELETE /users/:id(.:format)                                                                     users#destroy
 #                new_session GET    /session/new(.:format)                                                                   sessions#new
 #                    session DELETE /session(.:format)                                                                       sessions#destroy
 #                            POST   /session(.:format)                                                                       sessions#create
@@ -37,7 +40,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only:[:new, :create, :edit, :update]
+  resources :users
   resource :session, only:[:new, :create, :destroy]
   root to: redirect('/cats')
 end

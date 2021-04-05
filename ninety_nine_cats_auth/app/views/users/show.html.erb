@@ -1,0 +1,9 @@
+<h1>User Show Page</h1>
+
+<%= render "user", user: @user, action: :show %>
+
+<form action="<%= user_url(@user)%>", method="Post">
+    <input type="hidden" name="_method" value="DELETE">
+    
+    <input type="submit" value="Delete this user">
+</form>

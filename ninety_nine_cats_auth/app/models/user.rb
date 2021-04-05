@@ -49,4 +49,9 @@ class User < ApplicationRecord
         password_object.is_password?(password)
     end
 
+    def ensure_session_token
+        # debugger
+        self.session_token ||= SecureRandom::urlsafe_base64
+    end
+
 end

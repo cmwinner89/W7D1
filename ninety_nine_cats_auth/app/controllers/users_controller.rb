@@ -1,8 +1,22 @@
 class UsersController < ApplicationController
 
-    def new
-        @user = User.new
+    # before_action :require_logged_out, only: [:new, :create]
+    # before_action :require_logged_in, only: [:index, :show]
 
+    def index
+        @users = User.all
+        render :index
+    end
+
+    def show
+        @user = User.find(params[:id])
+        render :show
+    end
+
+    def new
+        # debugger
+        @user = User.new
+        # debugger
         render :new
     end
 
@@ -11,7 +25,7 @@ class UsersController < ApplicationController
 
         if @user.save
             login!(@user)
-            redirect_to user_url(@user)
+            redirect_to user_url
         else
             render :new
         end
@@ -31,9 +45,16 @@ class UsersController < ApplicationController
         end
     end
 
+    def destroy
+        user = User.find(params[:id])
+  
+        user.destroy
+        redirect_to users_url 
+    end
+
     private
 
     def user_params
-        params.rquire(:user).permit(:username, :password)
+        params.require(:user).permit(:username, :password)
     end
 end
